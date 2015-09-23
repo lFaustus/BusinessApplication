@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="material_lightblue">#5588FF</color>
+    <color name="material_gray">#CCCCCC</color>
+    <color name="green_material_semi_transparent">#B24CAF50</color>
+    <color name="red_material_semi_transparent">#B2FF5252</color>
+    <string-array name="material_palette">
+        <item>#B23F51B5</item>
+        <item>#B2FF5252</item>
+        <item>#B20091EA</item>
+        <item>#B200BFA5</item>
+        <item>#B24CAF50</item>
+        <item>#B28BC3A4</item>
+        <item>#B2FF9800</item>
+        <item>#B2E65100</item>
+        <item>#B2FF6F00</item>
+        <item>#B29C27B0</item>
+        <item>#B2D84315</item>
+        <item>#B2795548</item>
+        <item>#B2FF5722</item>
+        <item>#B2455A64</item>
+        <item>#B2FF4081</item>
+        <item>#B22196F3</item>
+        <item>#B2673AB7</item>
+    </string-array>
+
+    <color name="list_item_title_color">#fff</color>
+    <color name="list_background">#303030</color>
+    <color name="list_background_pressed">#992416</color>
+    <color name="list_divider">#272727</color>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/content_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_lightblue"
+        android:orientation="vertical">
+
+        <com.business.customviews.circularimageview.CircleImageView
+            android:id="@+id/content_icon"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/hello"
+            android:scaleType="centerCrop"
+            android:fitsSystemWindows="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/content_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Username"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/white_pressed"
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_below="@+id/content_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+</RelativeLayout>
