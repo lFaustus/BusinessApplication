@@ -21,8 +21,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.business.R;
 
@@ -100,17 +98,18 @@ public class NavigationDrawerFragment extends Fragment {
 
        // mTextView.setTextColor();
         View mView =  LayoutInflater.from(getActivity()).inflate(android.R.layout.simple_list_item_activated_1, container, false);
-        TextView mTextView = (TextView)mView.findViewById(android.R.id.text1);
-        mTextView.setTextColor(getResources().getColorStateList(R.color.default_button_textcolor_selector));
+
+        //mTextView.setTextColor(getResources().getColorStateList(R.color.default_button_textcolor_selector));
 
         mDrawerListView = (ListView)v.findViewById(R.id.listviewdrawer);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //((TextView)view.findViewById(R.id.text)).setTypeface(((MainActivity)getActivity()).PlayRegularFont());
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+        mDrawerListView.setAdapter(new ArrayAdapter<>(
                 getActivity(),
                 R.layout.listview_item,
                 R.id.text,
@@ -303,10 +302,10 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
+       /* if (item.getItemId() == R.id.action_example) {
             Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

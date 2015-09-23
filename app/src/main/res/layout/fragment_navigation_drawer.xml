@@ -21,7 +21,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/hello" />
 
-        <TextView
+        <com.business.customviews.circularimageview.customTextView
             android:id="@+id/Username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

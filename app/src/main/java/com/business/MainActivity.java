@@ -8,11 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.business.fragments.AgencyProcesses;
 import com.business.fragments.ControlPanel;
 import com.business.fragments.DownloadProcesses;
 import com.business.fragments.FileManager;
 import com.business.fragments.NavigationDrawerFragment;
-import com.business.fragments.Processes;
+import com.business.fragments.PersonalProcesses;
 import com.business.fragments.ProcessesManager;
 import com.business.fragments.Subscription;
 
@@ -21,12 +22,14 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     private Toolbar mAppBar;
     private CharSequence mTitle;
     private String[] mFragment_Tags;
+    //private Typeface mTypeFace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAppBar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(mAppBar);
+       // mTypeFace = Typeface.createFromAsset(getResources().getAssets(),"Play-Regular.ttf");
 
         mTitle = getTitle();
 
@@ -55,12 +58,17 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+       /* if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
+
+  /* public Typeface PlayRegularFont()
+    {
+        return mTypeFace;
+    }*/
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -72,12 +80,15 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 mControlPanel = ProcessesManager.newInstance(mTag);
                 break;
             case 1:
-                mControlPanel = Processes.newInstance(mTag);
+                mControlPanel = PersonalProcesses.newInstance(mTag);
                 break;
             case 2:
-                mControlPanel = FileManager.newInstance(mTag);
+                mControlPanel = AgencyProcesses.newInstance(mTag);
                 break;
             case 3:
+                mControlPanel = FileManager.newInstance(mTag);
+                break;
+            case 4:
                 mControlPanel = Subscription.newInstance(mTag);
                 break;
 
