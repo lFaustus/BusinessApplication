@@ -2,12 +2,12 @@ package com.business.fragments;
 
 import android.os.Bundle;
 
-import com.business.MainActivity;
 import com.business.R;
+import com.business.RootActivity;
 import com.business.adapters.CustomRecyclerAdapter;
+import com.business.model.BaseModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by User on 23/09/2015.
@@ -15,9 +15,12 @@ import java.util.Arrays;
 public class ProcessesManager extends ControlPanel {
 
     //private RecyclerView mRecyclerView;
-    private ArrayList<String> mArrayList = new ArrayList<String>(Arrays.asList("1","2","3"));
+    private ArrayList<BaseModel> mArrayList = new ArrayList<BaseModel>();
     //private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     public static String FRAGMENT_TAG;
+
+    private static final String mRetrieveURL="";
+
 
     /**
      * Use this factory method to create a new instance of
@@ -41,7 +44,7 @@ public class ProcessesManager extends ControlPanel {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             FRAGMENT_TAG = getArguments().getString(FRAGMENT_KEY);
-            ((MainActivity)(getActivity())).onSectionAttached(FRAGMENT_TAG);
+            ((RootActivity)(getActivity())).onSectionAttached(FRAGMENT_TAG);
         }
     }
 
@@ -49,7 +52,18 @@ public class ProcessesManager extends ControlPanel {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         super.mContentLabel.setText(FRAGMENT_TAG);
-       /* mRecyclerView = (RecyclerView)LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null);
+       /* JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.POST, mRetrieveURL, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+               // JSONArray mInformation = response.getJSONArray("");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });*/
+        /* mRecyclerView = (RecyclerView)LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null);
         super.mContent.addView(mRecyclerView);
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
@@ -57,7 +71,7 @@ public class ProcessesManager extends ControlPanel {
             mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);*/
-        super.mRecyclerView.setAdapter(new CustomRecyclerAdapter(getActivity(), mArrayList,R.layout.recyclerview_items_manage_process,FRAGMENT_TAG));
+        super.mRecyclerView.setAdapter(new CustomRecyclerAdapter(getActivity(), mArrayList, R.layout.recyclerview_items_manage_process, FRAGMENT_TAG));
 
     }
 }

@@ -10,7 +10,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.business.R;
+import com.business.RootActivity;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -322,13 +322,13 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private ActionBar getActionBar() {
-        return ((AppCompatActivity) getActivity()).getSupportActionBar();
+        return ((RootActivity) getActivity()).getSupportActionBar();
     }
 
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
-    public static interface NavigationDrawerCallbacks {
+    public  interface NavigationDrawerCallbacks {
         /**
          * Called when an default_button_textcolor_selector in the navigation drawer is selected.
          */

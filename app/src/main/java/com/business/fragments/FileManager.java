@@ -2,18 +2,18 @@ package com.business.fragments;
 
 import android.os.Bundle;
 
-import com.business.MainActivity;
 import com.business.R;
+import com.business.RootActivity;
 import com.business.adapters.CustomRecyclerAdapter;
+import com.business.model.BaseModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by User on 23/09/2015.
  */
 public class FileManager extends ControlPanel {
-    private ArrayList<String> mArrayList = new ArrayList<String>(Arrays.asList("1", "2", "3"));
+    private ArrayList<BaseModel> mArrayList = new ArrayList<BaseModel>();
     public static String FRAGMENT_TAG;
 
     public static ControlPanel newInstance(String param1) {
@@ -29,7 +29,7 @@ public class FileManager extends ControlPanel {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             FRAGMENT_TAG = getArguments().getString(FRAGMENT_KEY);
-            ((MainActivity)(getActivity())).onSectionAttached(FRAGMENT_TAG);
+            ((RootActivity)(getActivity())).onSectionAttached(FRAGMENT_TAG);
         }
     }
 

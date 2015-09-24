@@ -1,12 +1,13 @@
 package com.business.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import com.business.R;
 import com.business.customviews.circularimageview.CircleImageView;
 import com.business.interfaces.FragmentChangeListener;
+
+//import android.app.Fragment;
 
 
 public class ControlPanel extends Fragment {
@@ -69,8 +72,10 @@ public class ControlPanel extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("Recycler","not null");
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.content, container, false);
+        //View v = getView().findViewById(R.id.content);
         mContentIcon = (CircleImageView)v.findViewById(R.id.content_icon);
         mContentLabel = (TextView)v.findViewById(R.id.content_label);
         //mContentLabel.setTypeface(((MainActivity)getActivity()).PlayRegularFont());
@@ -82,8 +87,11 @@ public class ControlPanel extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mRecyclerView = (RecyclerView)LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null);
+        mRecyclerView = (RecyclerView)LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null,true);
+        if(mRecyclerView != null)
+            Log.e("Recycler","not null");
         mContent.addView(mRecyclerView);
+        Log.e("contentchild",mContent.getChildCount()+"");
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         else

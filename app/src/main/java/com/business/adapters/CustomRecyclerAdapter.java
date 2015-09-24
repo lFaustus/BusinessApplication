@@ -15,6 +15,8 @@ import com.business.fragments.FileManager;
 import com.business.fragments.PersonalProcesses;
 import com.business.fragments.ProcessesManager;
 import com.business.fragments.Subscription;
+import com.business.model.AgencyProcess;
+import com.business.model.BaseModel;
 
 import java.util.ArrayList;
 
@@ -23,20 +25,20 @@ import java.util.ArrayList;
  */
 public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private ArrayList<String> mArrayList;
+    private ArrayList<BaseModel> mArrayList;
     private Activity mActivity;
     private DisplayMetrics windowMetrics;
     private int mRecyclerItemLayout;
     private String mFragmentTag;
     private BaseViewHolder mBaseViewHolder;
 
-    public CustomRecyclerAdapter(Activity activity, ArrayList<String> arrayList,int recyclerItemLayout,String fragmentTag) {
+    public CustomRecyclerAdapter(Activity activity, ArrayList<BaseModel> arrayList,int recyclerItemLayout,String fragmentTag) {
         windowMetrics = activity.getResources().getDisplayMetrics();
         mActivity = activity;
         mArrayList = arrayList;
         mRecyclerItemLayout = recyclerItemLayout;
         mFragmentTag = fragmentTag;
-
+        Log.e("Size",mArrayList.size()+"");
 
 
     }
@@ -45,6 +47,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Log.e("section", mFragmentTag);
         //Log.e("try",PersonalProcesses.FRAGMENT_TAG);
+        Log.e("tag",mFragmentTag+" "+AgencyProcesses.FRAGMENT_TAG);
         if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG)) {
             Log.e("process", "process");
             mBaseViewHolder = new ViewHolderProcessManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
@@ -84,10 +87,22 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             layoutParams1.setFullSpan(true);
         }
 
-       /* if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG))
+        if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG))
             ;
         else if (mFragmentTag.equals(AgencyProcesses.FRAGMENT_TAG))
-            ;
+        {
+            AgencyProcess mAgencyProcess = (AgencyProcess)mArrayList.get(position);
+            holder.mProcessName.setText(mAgencyProcess.getName());
+            holder.mBranch.setText("Branch - "+ mAgencyProcess.getBranch());
+            holder.mStepSourceUri.setText("Agency - " +mAgencyProcess.getAgency());
+            holder.mAddress.setText("Address - "+mAgencyProcess.getAddress());
+            holder.mStepStatus.setText("Waiting: "+mAgencyProcess.getWaiting()+" / "+mAgencyProcess.getCount()
+            +" Done: "+mAgencyProcess.getDone()+" / "+mAgencyProcess.getCount()+" Undone: "+mAgencyProcess.getUndone()+" / "
+            +mAgencyProcess.getCount());
+            holder.mRequirementStatus.setText("Uncheck : "+ mAgencyProcess.getUndone()+" / "+mAgencyProcess.getRequirementCount()
+            +"Check: "+mAgencyProcess.getCheck() + " / "+mAgencyProcess.getRequirementCount());
+
+        }
         else if (mFragmentTag.equals(FileManager.FRAGMENT_TAG))
             ;
         else if (mFragmentTag.equals(Subscription.FRAGMENT_TAG))
@@ -98,7 +113,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             ;
         }
         else
-            ;*/
+            ;
 
        /* Log.e("position", position + "");
 

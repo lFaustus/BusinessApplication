@@ -26,4 +26,6 @@
         <item>Subscriptions</item>
         <item>Download Processes</item>
     </string-array>
+    <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_rootactivity">rootactivity</string>
 </resources>
