@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.business.MainActivity;
 import com.business.R;
 import com.business.customviews.circularimageview.CircleImageView;
 import com.business.interfaces.FragmentChangeListener;
@@ -25,7 +24,7 @@ public class ControlPanel extends Fragment {
     protected static String FRAGMENT_KEY = "ControlPanel";
 
     // TODO: Rename and change types of parameters
-    public static String FRAGMENT_TAG;
+
 
     private FragmentChangeListener mListener;
 
@@ -65,10 +64,6 @@ public class ControlPanel extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            FRAGMENT_TAG = getArguments().getString(FRAGMENT_KEY);
-            ((MainActivity)(getActivity())).onSectionAttached(FRAGMENT_TAG);
-        }
     }
 
     @Override
@@ -86,7 +81,7 @@ public class ControlPanel extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mContentLabel.setText(FRAGMENT_TAG);
+
         mRecyclerView = (RecyclerView)LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null);
         mContent.addView(mRecyclerView);
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
@@ -122,6 +117,7 @@ public class ControlPanel extends Fragment {
         if(mContent.getChildCount() != 0)
             mContent.removeAllViews();
         mListener = null;
+
     }
 
 

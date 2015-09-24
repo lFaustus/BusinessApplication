@@ -2,6 +2,7 @@ package com.business.fragments;
 
 import android.os.Bundle;
 
+import com.business.MainActivity;
 import com.business.R;
 import com.business.adapters.CustomRecyclerAdapter;
 
@@ -12,7 +13,7 @@ import java.util.Arrays;
  * Created by User on 23/09/2015.
  */
 public class PersonalProcesses extends ControlPanel {
-
+    public static String FRAGMENT_TAG;
     //private RecyclerView mRecyclerView;
     private ArrayList<String> mArrayList = new ArrayList<String>(Arrays.asList("1", "2", "3"));
     //private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
@@ -27,9 +28,18 @@ public class PersonalProcesses extends ControlPanel {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            FRAGMENT_TAG = getArguments().getString(FRAGMENT_KEY);
+            ((MainActivity)(getActivity())).onSectionAttached(FRAGMENT_TAG);
+        }
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        super.mContentLabel.setText(FRAGMENT_TAG);
        /* mRecyclerView = (RecyclerView) LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null);
         super.mContent.addView(mRecyclerView);
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)

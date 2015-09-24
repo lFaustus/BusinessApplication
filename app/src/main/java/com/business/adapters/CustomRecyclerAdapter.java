@@ -2,36 +2,33 @@ package com.business.adapters;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.business.R;
 import com.business.fragments.AgencyProcesses;
+import com.business.fragments.FileManager;
 import com.business.fragments.PersonalProcesses;
+import com.business.fragments.ProcessesManager;
+import com.business.fragments.Subscription;
 
 import java.util.ArrayList;
 
 /**
  * Created by User on 23/09/2015.
  */
-public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder> {
+public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private ArrayList<String> mArrayList;
     private Activity mActivity;
     private DisplayMetrics windowMetrics;
     private int mRecyclerItemLayout;
     private String mFragmentTag;
-
+    private BaseViewHolder mBaseViewHolder;
 
     public CustomRecyclerAdapter(Activity activity, ArrayList<String> arrayList,int recyclerItemLayout,String fragmentTag) {
         windowMetrics = activity.getResources().getDisplayMetrics();
@@ -41,26 +38,42 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
         mFragmentTag = fragmentTag;
 
 
+
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false));
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Log.e("section", mFragmentTag);
+        //Log.e("try",PersonalProcesses.FRAGMENT_TAG);
+        if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG)) {
+            Log.e("process", "process");
+            mBaseViewHolder = new ViewHolderProcessManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+        }
+        else if (mFragmentTag.equals(AgencyProcesses.FRAGMENT_TAG)) {
+            Log.e("agency", "process");
+            mBaseViewHolder = new ViewHolderAgencyProcess(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+        }
+        else if (mFragmentTag.equals(FileManager.FRAGMENT_TAG)) {
+            Log.e("file", "process");
+            mBaseViewHolder = new ViewHolderFileManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+        }
+        else if (mFragmentTag.equals(Subscription.FRAGMENT_TAG)) {
+            Log.e("subscription", "process");
+            mBaseViewHolder = new ViewHolderSubscriptions(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+        }
+        else if (mFragmentTag.equals(PersonalProcesses.FRAGMENT_TAG)) {
+            Log.e("personal", "process");
+            mBaseViewHolder = new ViewHolderPersonalProcess(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+        }
+        else {
+            Log.e("download", "process");
+            mBaseViewHolder = new ViewHolderDownloadProcesses(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+        }
+        return mBaseViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-
-        Log.e("position", position + "");
-        /* TODO */
-        if(holder.mDeleteButton != null)
-            holder.mDeleteButton.setTag(position);
-
-        if(holder.mUpdateButton != null)
-            holder.mUpdateButton.setTag(position);
-
-
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
         if(mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
         {
             ViewGroup.LayoutParams layoutparams = holder.mCard.getLayoutParams();
@@ -70,6 +83,32 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
             StaggeredGridLayoutManager.LayoutParams layoutParams1 = ((StaggeredGridLayoutManager.LayoutParams) holder.mCard.getLayoutParams());
             layoutParams1.setFullSpan(true);
         }
+
+       /* if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG))
+            ;
+        else if (mFragmentTag.equals(AgencyProcesses.FRAGMENT_TAG))
+            ;
+        else if (mFragmentTag.equals(FileManager.FRAGMENT_TAG))
+            ;
+        else if (mFragmentTag.equals(Subscription.FRAGMENT_TAG))
+            ;
+        else if (mFragmentTag.equals(PersonalProcesses.FRAGMENT_TAG)) {
+            //holder.mBranch.setVisibility(View.GONE);
+            //holder.mAddress.setVisibility(View.GONE);
+            ;
+        }
+        else
+            ;*/
+
+       /* Log.e("position", position + "");
+
+        if(holder.mDeleteButton != null)
+            holder.mDeleteButton.setTag(position);
+
+        if(holder.mUpdateButton != null)
+            holder.mUpdateButton.setTag(position);
+
+
 
         /*if(mFragmentTag == FileManager.FRAGMENT_TAG)
         {
@@ -103,16 +142,16 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     }
 
     @Override
-    public void onViewAttachedToWindow(ViewHolder holder) {
+    public void onViewAttachedToWindow(BaseViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        if(mFragmentTag == PersonalProcesses.FRAGMENT_TAG && holder.mBranch!=null && holder.mAddress != null) {
+        /*if(mFragmentTag == PersonalProcesses.FRAGMENT_TAG && holder.mBranch!=null && holder.mAddress != null) {
             holder.mBranch.setVisibility(View.GONE);
             holder.mAddress.setVisibility(View.GONE);
         }
         else if(mFragmentTag == AgencyProcesses.FRAGMENT_TAG && holder.mBranch!=null && holder.mAddress != null) {
             holder.mBranch.setVisibility(View.VISIBLE);
             holder.mAddress.setVisibility(View.VISIBLE);
-        }
+        }*/
        /* if(mFragmentTag == PersonalProcesses.FRAGMENT_TAG && mFragmentTag!=null) {
             holder.mBranch.setVisibility(View.GONE);
             holder.mAddress.setVisibility(View.GONE);
@@ -123,7 +162,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
         }*/
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    /*class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView mProcessName, mScheduleType, mRecurrence, mNo_Recurrence, mDateModified, mDateCreated,
         mStepStatus,mStepsPersonalProcessSource,mRequirementStatus,mStepSourceUri,mBranch,mAddress;
@@ -135,11 +174,6 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
 
             super(itemView);
             initializeViews((ViewGroup)itemView);
-
-
-
-
-
            /* mDeleteButton = (Button) itemView.findViewById(R.id.delete_button);
             mUpdateButton = (Button) itemView.findViewById(R.id.update_button);
 
@@ -151,7 +185,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
             mRecurrence = (TextView) itemView.findViewById(R.id.recurrence);
             mNo_Recurrence = (TextView) itemView.findViewById(R.id.number_recurrence);
             mDateCreated = (TextView) itemView.findViewById(R.id.date);
-            mDateModified = (TextView) itemView.findViewById(R.id.date_modified);*/
+            mDateModified = (TextView) itemView.findViewById(R.id.date_modified);
 
             mCard = (CardView)itemView.findViewById(R.id.card_view);
 
@@ -259,5 +293,5 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                 }
             }
         }
-    }
+    }*/
 }

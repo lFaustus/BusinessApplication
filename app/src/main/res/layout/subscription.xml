@@ -1,7 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp">
 
-    <WebView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.business.customviews.circularimageview.customTextView
+                android:id="@+id/start_date"
+                style="@style/TextViewTheme_small"
+                android:layout_width="200dp"
+                android:layout_alignParentStart="true"
+                android:text="Start Date : 01 - 01 - 15" />
+
+            <com.business.customviews.circularimageview.customTextView
+                android:id="@+id/end_date"
+                style="@style/TextViewTheme_small"
+                android:layout_alignParentEnd="true"
+                android:text="End Date : 01-01-15" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/card_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+                <com.business.customviews.circularimageview.customTextView
+                    android:id="@+id/plan_description"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plan Description Value" />
+
+                <com.business.customviews.circularimageview.customTextView
+                    style="@style/TextViewTheme_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plan Description"
+                    />
+
+                <com.business.customviews.circularimageview.customTextView
+                    android:id="@+id/number_month_year"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number of Month / Year" />
+
+                <com.business.customviews.circularimageview.customTextView
+                    style="@style/TextViewTheme_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/number_month_year"
+                    android:text="Number of Month / Year Label" />
+
+
+                <com.business.customviews.circularimageview.customTextView
+                    android:id="@+id/rate"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rate" />
+
+                <com.business.customviews.circularimageview.customTextView
+                    style="@style/TextViewTheme_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rate Label" />
+
+                <com.business.customviews.circularimageview.customTextView
+                    android:id="@+id/total"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total" />
+
+                <com.business.customviews.circularimageview.customTextView
+                    style="@style/TextViewTheme_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Label" />
+
+                <com.business.customviews.circularimageview.customTextView
+                    android:id="@+id/paypal_account"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/downloaded_from_label"
+                    android:text="Paypal Account" />
+
+                <com.business.customviews.circularimageview.customTextView
+                    style="@style/TextViewTheme_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paypal Account Label" />
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/card_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/material_gray" />
+
+            <Button
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/card_divider"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/delete_button"
+                android:text="Delete"
+                android:textColor="@color/red_button_textcolor_selector"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/update_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_divider"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toLeftOf="@+id/delete_button"
+                android:layout_toStartOf="@+id/delete_button"
+                android:background="@drawable/update_button"
+                android:text="Edit"
+                android:textColor="@color/orange_button_textcolor_selector"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
