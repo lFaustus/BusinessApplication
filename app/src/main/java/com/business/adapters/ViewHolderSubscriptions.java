@@ -9,5 +9,6 @@ import android.view.View;
 public class ViewHolderSubscriptions extends BaseViewHolder {
     public ViewHolderSubscriptions(View itemView, Activity activity) {
         super(itemView, activity);
+        super.mButtonPanel.setVisibility(View.GONE);
     }
 }

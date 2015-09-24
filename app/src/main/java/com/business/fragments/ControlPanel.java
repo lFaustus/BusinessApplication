@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.business.R;
@@ -38,6 +39,8 @@ public class ControlPanel extends Fragment {
     protected FrameLayout mContent;
 
     protected RecyclerView mRecyclerView;
+
+    protected LinearLayout mContentHeader;
 
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
 
@@ -80,6 +83,7 @@ public class ControlPanel extends Fragment {
         mContentLabel = (TextView)v.findViewById(R.id.content_label);
         //mContentLabel.setTypeface(((MainActivity)getActivity()).PlayRegularFont());
         mContent = (FrameLayout)v.findViewById(R.id.content);
+        mContentHeader = (LinearLayout)v.findViewById(R.id.content_header);
         return v;
     }
 
@@ -91,7 +95,7 @@ public class ControlPanel extends Fragment {
         if(mRecyclerView != null)
             Log.e("Recycler","not null");
         mContent.addView(mRecyclerView);
-        Log.e("contentchild",mContent.getChildCount()+"");
+
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         else

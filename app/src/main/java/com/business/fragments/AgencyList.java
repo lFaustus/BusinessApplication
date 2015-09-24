@@ -2,6 +2,7 @@ package com.business.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,18 +21,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by User on 23/09/2015.
+ * Created by User on 25/09/2015.
  */
-public class PersonalProcesses extends ControlPanel {
-    public static String FRAGMENT_TAG;
-    //private RecyclerView mRecyclerView;
+public class AgencyList extends ControlPanel {
+
     private ArrayList<BaseModel> mArrayList = new ArrayList<BaseModel>();
-    private static final String mRetrieveURL="http://192.168.1.36/christian-john/enduser/myprocessmobile.php";
-    //private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    // private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    public static String FRAGMENT_TAG;
+    private static final String mRetrieveURL="http://192.168.1.36/christian-john/enduser/listagenciesmobile.php";
 
-
-    public static ControlPanel newInstance(String param1) {
-        PersonalProcesses fragment = new PersonalProcesses();
+    public static AgencyList newInstance(String param1) {
+        AgencyList fragment = new AgencyList();
         Bundle args = new Bundle();
         args.putString(FRAGMENT_KEY, param1);
         fragment.setArguments(args);
@@ -45,40 +45,41 @@ public class PersonalProcesses extends ControlPanel {
             FRAGMENT_TAG = getArguments().getString(FRAGMENT_KEY);
             ((RootActivity)(getActivity())).onSectionAttached(FRAGMENT_TAG);
         }
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        super.mContentLabel.setText(FRAGMENT_TAG);
-        Log.e("Aw", mRetrieveURL);
+        super.mContentHeader.setVisibility(View.GONE);
+
         RequestQueue mRequestQueue = VolleyConnection.getInstance().getRequestQueue();
         JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.POST,mRetrieveURL, response -> {
-
+            //Log.e("Aw", mRetrieveURL);
             try {
-                JSONArray mInformation = response.getJSONArray("personalprocess");
+                JSONArray mInformation = response.getJSONArray("agency");
                 Log.e("mInformationCount", mInformation.length() + "");
                 for(int i = 0; i<mInformation.length();i++)
                 {
 
                     JSONObject mJsonObject = mInformation.getJSONObject(i);
                     AgencyProcess mAgencyProcess = new AgencyProcess();
-                    mAgencyProcess.setId(mJsonObject.getString("id"));
-                    mAgencyProcess.setName(mJsonObject.getString("name"));
-                    mAgencyProcess.setAgency(mJsonObject.getString("agency"));
-                   //mAgencyProcess.setBranch(mJsonObject.getString("branch"));
-                   // mAgencyProcess.setAddress(mJsonObject.getString("address"));
-                    mAgencyProcess.setCheck(mJsonObject.getString("check"));
+                    //mAgencyProcess.setName(mJsonObject.getString("AgencyName"));
+
+                    mAgencyProcess.setAgency(mJsonObject.getString("AgencyName"));
+                    mAgencyProcess.setBranch(mJsonObject.getString("branch"));
+                    mAgencyProcess.setAddress(mJsonObject.getString("address"));
+                    /*mAgencyProcess.setCheck(mJsonObject.getString("check"));
                     mAgencyProcess.setUncheck(mJsonObject.getString("uncheck"));
                     mAgencyProcess.setDone(mJsonObject.getString("done"));
                     mAgencyProcess.setUndone(mJsonObject.getString("undone"));
                     mAgencyProcess.setWaiting(mJsonObject.getString("waiting"));
                     mAgencyProcess.setCount(mJsonObject.getString("productcount"));
-                    mAgencyProcess.setRequirementCount(mJsonObject.getString("requirementtotal"));
+                    mAgencyProcess.setRequirementCount(mJsonObject.getString("requirementtotal"));*/
                     mArrayList.add(mAgencyProcess);
                     Log.e("array size", mArrayList.size() + "");
                 }
-                mRecyclerView.setAdapter(new CustomRecyclerAdapter(getActivity(), mArrayList, R.layout.recyclerview_items_personal_agency_process, FRAGMENT_TAG));
+                mRecyclerView.setAdapter(new CustomRecyclerAdapter(getActivity(), mArrayList, R.layout.recyclerview_items_agency_list, FRAGMENT_TAG));
             } catch (JSONException e) {
 
                 e.printStackTrace();
@@ -88,7 +89,5 @@ public class PersonalProcesses extends ControlPanel {
 
         });
         mRequestQueue.add(mJsonObjectRequest);
-
-
     }
 }

@@ -5,6 +5,15 @@ package com.business.model;
  */
 public abstract class BaseModel {
     protected String Name;
+    protected String Id;
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public String getName() {
         return Name;

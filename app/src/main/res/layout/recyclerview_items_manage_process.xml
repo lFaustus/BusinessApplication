@@ -11,9 +11,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingBottom="10dp">
+        android:gravity="center"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,10 +40,11 @@
             android:scrollbars="none"
             android:layout_weight="1">
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/card_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 >
 
 
@@ -58,7 +60,7 @@
                     style="@style/TextViewTheme_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/process_name"
+
                     android:text="Process Name"
 
                     />
@@ -68,7 +70,7 @@
                     style="@style/TextViewTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/process_name_label"
+
                     android:text="Schedule Type" />
 
                 <com.business.customviews.circularimageview.customTextView
@@ -76,7 +78,7 @@
                     style="@style/TextViewTheme_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/schedule_type"
+
                     android:text="Schedule Type" />
 
 
@@ -85,7 +87,7 @@
                     style="@style/TextViewTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/schedule_type_label"
+
                     android:text="Recurrence" />
 
                 <com.business.customviews.circularimageview.customTextView
@@ -93,7 +95,7 @@
                     style="@style/TextViewTheme_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/recurrence"
+
                     android:text="recurrence" />
 
                 <com.business.customviews.circularimageview.customTextView
@@ -101,7 +103,7 @@
                     style="@style/TextViewTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/recurrence_label"
+
                     android:text="Downloaded Item" />
 
                 <com.business.customviews.circularimageview.customTextView
@@ -109,7 +111,7 @@
                     style="@style/TextViewTheme_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/downloaded_from"
+
                     android:text="Source" />
 
                 <com.business.customviews.circularimageview.customTextView
@@ -117,7 +119,7 @@
                     style="@style/TextViewTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/downloaded_from_label"
+
                     android:text="Date Modified" />
 
                 <com.business.customviews.circularimageview.customTextView
@@ -125,15 +127,15 @@
                     style="@style/TextViewTheme_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/date_modified"
+
                     android:text="Date Modified" />
-            </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
 
         <RelativeLayout
+            android:id="@+id/buttonPanel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/card_content">
+            android:layout_height="wrap_content">
 
             <View
                 android:id="@+id/card_divider"

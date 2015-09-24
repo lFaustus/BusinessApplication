@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +19,12 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private Activity mActivity;
 
     protected TextView mProcessName, mScheduleType, mRecurrence, mNo_Recurrence, mDateModified, mDateCreated,
-            mStepStatus,mStepsPersonalProcessSource,mRequirementStatus,mStepSourceUri,mBranch,mAddress,mDownloadedfrom;
+            mStepStatus,mStepsPersonalProcessSource,mRequirementStatus,mStepSourceUri,mBranch,mAddress,mDownloadedfrom,
+            mContentLabel,mDownloadedfromLabel, mScheduleTypeLabel,mPlanDescription,mRate,mTotalAmountSubscription,mStartDateSubscription,
+            mEndDateSubsciption,mPaypalAccount,mNumberMoYears;
     protected Button mDeleteButton, mUpdateButton;
     protected CardView mCard;
+    protected RelativeLayout mButtonPanel;
 
     public BaseViewHolder(View itemView,Activity activity) {
         super(itemView);
@@ -33,6 +37,12 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     {
         for(int i = 0; i< rootview.getChildCount();i++)
         {
+
+            if(rootview.getChildAt(i).getId() == R.id.buttonPanel)
+            {
+                mButtonPanel = (RelativeLayout) rootview.getChildAt(i);
+            }
+
             if(rootview.getChildAt(i) instanceof ViewGroup)
             {
                 initializeViews((ViewGroup) rootview.getChildAt(i));
@@ -68,7 +78,9 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                         case R.id.schedule_type:
                             mScheduleType = (TextView)rootview.getChildAt(i);
                             break;
-
+                        case R.id.schedule_type_label:
+                            mScheduleTypeLabel = (TextView)rootview.getChildAt(i);
+                            break;
                         case R.id.recurrence:
                             mRecurrence = (TextView)rootview.getChildAt(i);
                             break;
@@ -83,6 +95,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
                         case R.id.downloaded_from:
                             mDownloadedfrom = (TextView)rootview.getChildAt(i);
+                            break;
+
+                        case R.id.downloaded_from_label:
+                            mDownloadedfromLabel = (TextView)rootview.getChildAt(i);
                             break;
 
                         case R.id.date_modified:
@@ -108,6 +124,38 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                         case R.id.address:
                             mAddress = (TextView)rootview.getChildAt(i);
                             break;
+
+                        case R.id.content_label:
+                            mContentLabel = (TextView) rootview.getChildAt(i);
+                            break;
+
+                        case R.id.plan_description:
+                            mPlanDescription = (TextView) rootview.getChildAt(i);
+                            break;
+
+                        case R.id.number_month_year:
+                            mNumberMoYears = (TextView) rootview.getChildAt(i);
+                            break;
+                        case R.id.rate:
+                            mRate = (TextView) rootview.getChildAt(i);
+                            break;
+
+                        case R.id.total:
+                            mTotalAmountSubscription = (TextView) rootview.getChildAt(i);
+                            break;
+
+                        case R.id.paypal_account:
+                            mPaypalAccount = (TextView) rootview.getChildAt(i);
+                            break;
+
+                        case R.id.start_date:
+                            mStartDateSubscription = (TextView) rootview.getChildAt(i);
+                            break;
+
+                        case R.id.end_date:
+                            mEndDateSubsciption = (TextView) rootview.getChildAt(i);
+                            break;
+
                     }
                 }
             }

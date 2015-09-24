@@ -19,12 +19,14 @@
 
     <string name="action_example">Example action</string>
     <string-array name="fragment_tags">
+        <item>Agency List</item>
         <item>Process Manager</item>
         <item>Personal Process</item>
         <item>Agency Process</item>
         <item>File Manager</item>
         <item>Subscriptions</item>
         <item>Download Processes</item>
+
     </string-array>
     <string name="title_activity_login_page">LoginPage</string>
     <string name="title_activity_rootactivity">rootactivity</string>

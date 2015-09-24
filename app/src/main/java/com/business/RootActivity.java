@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.volley.RequestQueue;
+import com.business.fragments.AgencyList;
 import com.business.fragments.AgencyProcesses;
 import com.business.fragments.ControlPanel;
 import com.business.fragments.DownloadProcesses;
@@ -72,19 +73,23 @@ public class RootActivity extends AppCompatActivity implements NavigationDrawerF
 
         switch(position)
         {
+
             case 0:
-                mControlPanel = ProcessesManager.newInstance(mTag);
+                mControlPanel = AgencyList.newInstance(mTag);
                 break;
             case 1:
-                mControlPanel = PersonalProcesses.newInstance(mTag);
+                mControlPanel = ProcessesManager.newInstance(mTag);
                 break;
             case 2:
-                mControlPanel = AgencyProcesses.newInstance(mTag);
+                mControlPanel = PersonalProcesses.newInstance(mTag);
                 break;
             case 3:
-                mControlPanel = FileManager.newInstance(mTag);
+                mControlPanel = AgencyProcesses.newInstance(mTag);
                 break;
             case 4:
+                mControlPanel = FileManager.newInstance(mTag);
+                break;
+            case 5:
                 mControlPanel = Subscription.newInstance(mTag);
                 break;
 
@@ -106,6 +111,7 @@ public class RootActivity extends AppCompatActivity implements NavigationDrawerF
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle(mTitle);
     }
     /*@Override

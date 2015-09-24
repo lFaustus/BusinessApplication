@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.business.fragments.AgencyList;
 import com.business.fragments.AgencyProcesses;
 import com.business.fragments.FileManager;
 import com.business.fragments.PersonalProcesses;
@@ -17,6 +18,8 @@ import com.business.fragments.ProcessesManager;
 import com.business.fragments.Subscription;
 import com.business.model.AgencyProcess;
 import com.business.model.BaseModel;
+import com.business.model.ProcessManagerModel;
+import com.business.model.SubscriptionModel;
 
 import java.util.ArrayList;
 
@@ -47,7 +50,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Log.e("section", mFragmentTag);
         //Log.e("try",PersonalProcesses.FRAGMENT_TAG);
-        Log.e("tag",mFragmentTag+" "+AgencyProcesses.FRAGMENT_TAG);
+       // Log.e("tag",mFragmentTag+" "+AgencyProcesses.FRAGMENT_TAG);
         if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG)) {
             Log.e("process", "process");
             mBaseViewHolder = new ViewHolderProcessManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
@@ -68,6 +71,10 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             Log.e("personal", "process");
             mBaseViewHolder = new ViewHolderPersonalProcess(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
         }
+        else if (mFragmentTag.equals(AgencyList.FRAGMENT_TAG)) {
+            Log.e("agencylist", "agencylist");
+            mBaseViewHolder = new ViewHolderAgencyList(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+        }
         else {
             Log.e("download", "process");
             mBaseViewHolder = new ViewHolderDownloadProcesses(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
@@ -87,8 +94,16 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             layoutParams1.setFullSpan(true);
         }
 
-        if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG))
-            ;
+        if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG)) {
+            ProcessManagerModel mProcessManagerModel = (ProcessManagerModel)mArrayList.get(position);
+            holder.mProcessName.setText(mProcessManagerModel.getName());
+            holder.mNo_Recurrence.setText("No. of Recurrence - "+mProcessManagerModel.getNumber_Recurrence());
+            holder.mRecurrence.setText(mProcessManagerModel.getRecurrence());
+            holder.mDateCreated.setText(mProcessManagerModel.getDateCreated());
+            holder.mDateModified.setText(mProcessManagerModel.getDateModified());
+            holder.mUpdateButton.setTag(mProcessManagerModel.getId());
+            holder.mDeleteButton.setTag(mProcessManagerModel.getId());
+        }
         else if (mFragmentTag.equals(AgencyProcesses.FRAGMENT_TAG))
         {
             AgencyProcess mAgencyProcess = (AgencyProcess)mArrayList.get(position);
@@ -105,12 +120,34 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         }
         else if (mFragmentTag.equals(FileManager.FRAGMENT_TAG))
             ;
-        else if (mFragmentTag.equals(Subscription.FRAGMENT_TAG))
-            ;
+        else if (mFragmentTag.equals(Subscription.FRAGMENT_TAG)) {
+            SubscriptionModel mSubscriptionModel = (SubscriptionModel)mArrayList.get(position);
+            holder.mPlanDescription.setText(mSubscriptionModel.getPlanDescription());
+            holder.mNumberMoYears.setText(mSubscriptionModel.getNumberMonthsYear());
+            holder.mRate.setText(mSubscriptionModel.getRate());
+            holder.mTotalAmountSubscription.setText(mSubscriptionModel.getTotalAmount());
+            holder.mPaypalAccount.setText(mSubscriptionModel.getPaypalAccount());
+            holder.mStartDateSubscription.setText("Start Date - " + mSubscriptionModel.getStartDate());
+            holder.mEndDateSubsciption.setText("End Date - " + mSubscriptionModel.getEndDate());
+        }
         else if (mFragmentTag.equals(PersonalProcesses.FRAGMENT_TAG)) {
-            //holder.mBranch.setVisibility(View.GONE);
-            //holder.mAddress.setVisibility(View.GONE);
-            ;
+            AgencyProcess mAgencyProcess = (AgencyProcess)mArrayList.get(position);
+            holder.mProcessName.setText(mAgencyProcess.getName());
+            //holder.mBranch.setText("Branch - "+ mAgencyProcess.getBranch());
+            holder.mStepSourceUri.setText("Agency - " +mAgencyProcess.getAgency());
+            //holder.mAddress.setText("Address - "+mAgencyProcess.getAddress());
+            holder.mStepStatus.setText("Waiting: "+mAgencyProcess.getWaiting()+" / "+mAgencyProcess.getCount()
+                    +" Done: "+mAgencyProcess.getDone()+" / "+mAgencyProcess.getCount()+" Undone: "+mAgencyProcess.getUndone()+" / "
+                    +mAgencyProcess.getCount());
+            holder.mRequirementStatus.setText("Uncheck : "+ mAgencyProcess.getUndone()+" / "+mAgencyProcess.getRequirementCount()
+                    +"Check: "+mAgencyProcess.getCheck() + " / "+mAgencyProcess.getRequirementCount());
+            holder.mDeleteButton.setTag(mAgencyProcess.getId());
+        }
+        else if (mFragmentTag.equals(AgencyList.FRAGMENT_TAG)) {
+            AgencyProcess mAgencyList = (AgencyProcess)mArrayList.get(position);
+            holder.mContentLabel.setText(mAgencyList.getAgency());
+            holder.mBranch.setText("Branch - "+mAgencyList.getBranch());
+            holder.mAddress.setText("Address - "+mAgencyList.getAddress());
         }
         else
             ;

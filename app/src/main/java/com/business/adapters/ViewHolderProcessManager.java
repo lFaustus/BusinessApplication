@@ -10,6 +10,10 @@ public class ViewHolderProcessManager extends BaseViewHolder {
 
     public ViewHolderProcessManager(View itemView, Activity activity) {
         super(itemView, activity);
+        super.mDownloadedfrom.setVisibility(View.GONE);
+        super.mDownloadedfromLabel.setVisibility(View.GONE);
+        super.mScheduleType.setVisibility(View.GONE);
+        super.mScheduleTypeLabel.setVisibility(View.GONE);
        /* super.mProcessName = (TextView)itemView.findViewById(R.id.process_name);
         super.mScheduleType = (TextView)itemView.findViewById(R.id.schedule_type);
         super.mRecurrence = (TextView)itemView.findViewById(R.id.recurrence);

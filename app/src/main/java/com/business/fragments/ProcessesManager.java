@@ -1,11 +1,21 @@
 package com.business.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.business.R;
 import com.business.RootActivity;
 import com.business.adapters.CustomRecyclerAdapter;
 import com.business.model.BaseModel;
+import com.business.model.ProcessManagerModel;
+import com.business.volley.VolleyConnection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -19,7 +29,7 @@ public class ProcessesManager extends ControlPanel {
     //private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     public static String FRAGMENT_TAG;
 
-    private static final String mRetrieveURL="";
+    private static final String mRetrieveURL="http://192.168.1.36/christian-john/enduser/listprocessmobile.php";
 
 
     /**
@@ -52,26 +62,37 @@ public class ProcessesManager extends ControlPanel {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         super.mContentLabel.setText(FRAGMENT_TAG);
-       /* JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.POST, mRetrieveURL, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-               // JSONArray mInformation = response.getJSONArray("");
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        RequestQueue mRequestQueue = VolleyConnection.getInstance().getRequestQueue();
+        JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.POST,mRetrieveURL, response -> {
 
+            try {
+                JSONArray mInformation = response.getJSONArray("manageprocess");
+                Log.e("mInformationCount", mInformation.length() + "sd");
+                for(int i = 0; i<mInformation.length();i++)
+                {
+
+                    JSONObject mJsonObject = mInformation.getJSONObject(i);
+                    ProcessManagerModel mProcessManager = new ProcessManagerModel();
+                    mProcessManager.setId(mJsonObject.getString("id"));
+                    mProcessManager.setName(mJsonObject.getString("name"));
+                    mProcessManager.setRecurrence(mJsonObject.getString("recurrence"));
+                    mProcessManager.setNumber_Recurrence(mJsonObject.getString("number_recurrence"));
+                    mProcessManager.setDateCreated(mJsonObject.getString("createdon"));
+                    mProcessManager.setDateModified(mJsonObject.getString("datemodified"));
+
+                    mArrayList.add(mProcessManager);
+                    Log.e("array size", mArrayList.size() + "");
+                }
+                mRecyclerView.setAdapter(new CustomRecyclerAdapter(getActivity(), mArrayList, R.layout.recyclerview_items_manage_process, FRAGMENT_TAG));
+            } catch (JSONException e) {
+
+                e.printStackTrace();
             }
-        });*/
-        /* mRecyclerView = (RecyclerView)LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null);
-        super.mContent.addView(mRecyclerView);
-        if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-        else
-            mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);*/
-        super.mRecyclerView.setAdapter(new CustomRecyclerAdapter(getActivity(), mArrayList, R.layout.recyclerview_items_manage_process, FRAGMENT_TAG));
+        }, error -> {
+            error.printStackTrace();
+
+        });
+        mRequestQueue.add(mJsonObjectRequest);
 
     }
 }

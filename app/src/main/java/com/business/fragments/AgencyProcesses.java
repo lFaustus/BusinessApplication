@@ -27,7 +27,7 @@ public class AgencyProcesses extends ControlPanel {
     private ArrayList<BaseModel> mArrayList = new ArrayList<BaseModel>();
    // private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
    public static String FRAGMENT_TAG;
-    private static final String mRetrieveURL="http://192.168.1.36/christian-john/enduser/listprocesstemplatetest.php";
+    private static final String mRetrieveURL="http://192.168.1.36/christian-john/enduser/listprocesstemplatemobile.php";
 
     public static ControlPanel newInstance(String param1) {
         AgencyProcesses fragment = new AgencyProcesses();
