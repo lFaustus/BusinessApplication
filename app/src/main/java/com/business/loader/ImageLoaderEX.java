@@ -14,7 +14,6 @@ import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
-import com.business.R;
 import com.business.customviews.circularimageview.CircleImageView;
 
 import java.io.File;
@@ -101,12 +100,78 @@ public class ImageLoaderEX
     }
 
 
+    public void DisplayImageFromWeb(String imageURI,String Name,ImageView imageview)
+    {
+        mImageViews.put(imageview,imageURI);
+        Bitmap bitmap = mMemoryCache.get(imageURI);
+        if(!(imageview instanceof CircleImageView))
+            imageview.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        if(bitmap != null)
+        {
+            //imageview.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageview.setImageBitmap(bitmap);
+            Log.d("Bitmap From","Memory Cache");
+        }
+        else
+        {
+            QueuePhoto(imageURI,Name,imageview);
+            Log.d("Yeah", "yeah4");
+            //imageview.setScaleType(ImageView.ScaleType.FIT_XY);
+              /*
+              * serves as placeholder(image to be shown while waiting for the decoded image to be loaded)
+              */
+            //imageview.setImageResource(R.drawable.hello);
+            // imageview.setImageBitmap(null);
+        }
+    }
+
+
     private void QueuePhoto(String imageUrl,String Name,ImageView imageview)
     {
-        mExecutorService.submit(new PhotoLoader(new PhotoToLoad(Name,imageUrl,imageview)));
+        mExecutorService.submit(new PhotoLoader(new PhotoToLoad(Name, imageUrl, imageview)));
     }
 
     private Bitmap getBitmap(PhotoToLoad photoToLoad)
+    {
+        File f = mFileCache.getFile(photoToLoad.URL);
+
+        //from SD cache
+        Bitmap b = readFileAndDecodeToBitmap(f);
+        if(b!=null)
+        {
+            Log.d("Bitmap From", "SD Cache");
+            return b;
+        }
+
+
+        try
+        {
+
+            InputStream is = this.mBaseImageDownloader.getStream(photoToLoad.URL);
+
+            OutputStream os = new FileOutputStream(f);
+            Utils.CopyStream(is, os);
+
+            return readFileAndDecodeToBitmap(f);
+        }
+        catch(Throwable ex)
+        {
+            if(ex instanceof OutOfMemoryError)
+                mMemoryCache.clear();
+            else if (ex instanceof URISyntaxException)
+            {
+                Log.e("URISyntaxException",ex.getMessage());
+            }
+
+            else
+                ex.printStackTrace();
+
+        }
+        return null;
+    }
+
+    private Bitmap getBitmapFromWeb(PhotoToLoad photoToLoad)
     {
         File f = mFileCache.getFile(photoToLoad.URL);
 
@@ -187,6 +252,9 @@ public class ImageLoaderEX
         return null;
     }
 
+
+
+
     private class PhotoToLoad
     {
         private String Name;
@@ -227,7 +295,10 @@ public class ImageLoaderEX
                 if(!imageviewPersistInMap(mPhotoToLoad))
                     return;
 
-                Bitmap bmp = getBitmap(mPhotoToLoad);
+                //Bitmap bmp = getBitmap(mPhotoToLoad);
+                Bitmap  bmp = getBitmapFromWeb(mPhotoToLoad);
+               // if(bmp == null)
+                   // bmp = getBitmapFromWeb(mPhotoToLoad);
                 ImageLoaderEX.this.mMemoryCache.put(mPhotoToLoad.URL,bmp);
 
                 if(!imageviewPersistInMap(mPhotoToLoad))
@@ -267,7 +338,8 @@ public class ImageLoaderEX
             {
                 //Animations(this.mPhotoToLoad.mImageView, mBitmap);
                 //Animations.animate(this.mPhotoToLoad.mImageView, mBitmap);
-                Animate(this.mPhotoToLoad.mImageView, mBitmap);
+                //Animate(this.mPhotoToLoad.mImageView, mBitmap);
+                this.mPhotoToLoad.mImageView.setImageBitmap(mBitmap);
             }
             else //if image not found or failed to load
                 this.mPhotoToLoad.mImageView.setImageBitmap(null);

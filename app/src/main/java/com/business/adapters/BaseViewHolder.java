@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.business.R;
+import com.business.customviews.circularimageview.CircleImageView;
 
 /**
  * Created by User on 24/09/2015.
@@ -21,10 +22,11 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     protected TextView mProcessName, mScheduleType, mRecurrence, mNo_Recurrence, mDateModified, mDateCreated,
             mStepStatus,mStepsPersonalProcessSource,mRequirementStatus,mStepSourceUri,mBranch,mAddress,mDownloadedfrom,
             mContentLabel,mDownloadedfromLabel, mScheduleTypeLabel,mPlanDescription,mRate,mTotalAmountSubscription,mStartDateSubscription,
-            mEndDateSubsciption,mPaypalAccount,mNumberMoYears;
+            mEndDateSubsciption,mPaypalAccount,mNumberMoYears,mUsername;
     protected Button mDeleteButton, mUpdateButton;
     protected CardView mCard;
     protected RelativeLayout mButtonPanel;
+    protected CircleImageView mContent_icon,mCard_icon,mProfile_pic;
 
     public BaseViewHolder(View itemView,Activity activity) {
         super(itemView);
@@ -64,6 +66,23 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                             mUpdateButton.setOnClickListener(this);
                             break;
                     }
+                }
+                else if(rootview.getChildAt(i) instanceof CircleImageView)
+                {
+                        switch(rootview.getChildAt(i).getId())
+                        {
+                            case R.id.card_icon:
+                                mCard_icon = (CircleImageView)rootview.getChildAt(i);
+                                break;
+
+                            case R.id.profile_pic:
+                                mProfile_pic = (CircleImageView)rootview.getChildAt(i);
+                                break;
+
+                            case R.id.content_icon:
+                                mContent_icon = (CircleImageView)rootview.getChildAt(i);
+                                break;
+                        }
                 }
 
                 else if(rootview.getChildAt(i) instanceof TextView)
@@ -154,6 +173,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
                         case R.id.end_date:
                             mEndDateSubsciption = (TextView) rootview.getChildAt(i);
+                            break;
+
+                        case R.id.username:
+                            mUsername = (TextView)rootview.getChildAt(i);
                             break;
 
                     }

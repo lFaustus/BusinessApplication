@@ -25,7 +25,13 @@ public class VolleyConnection {
         CookieStore cookieStore = new BasicCookieStore();
         httpclient.setCookieStore( cookieStore );
         HttpStack httpStack = new HttpClientStack( httpclient );
+       /* for(int i=0;i<httpclient.getCookieStore().getCookies().size();i++)
+        {
+            Log.e("iteration : ",""+i);
+            Log.e("cookie",httpclient.getCookieStore().getCookies().get(i).toString());
+        }*/
         mRequestQueue = Volley.newRequestQueue(MyApplication.getAppContext(),httpStack);
+
         //TODO
         mVolleyImageLoader = null;
     }

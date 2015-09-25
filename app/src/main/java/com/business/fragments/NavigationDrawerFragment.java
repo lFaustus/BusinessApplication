@@ -20,9 +20,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.business.R;
 import com.business.RootActivity;
+import com.business.customviews.circularimageview.CircleImageView;
+import com.business.model.EndUser;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -62,6 +65,11 @@ public class NavigationDrawerFragment extends Fragment {
 
     public static String[] mFragment_Tags;
 
+    private TextView mUsername;
+    private CircleImageView mProfilePic;
+
+    private EndUser mEndUser;
+
     public NavigationDrawerFragment() {
     }
 
@@ -88,6 +96,11 @@ public class NavigationDrawerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
+        mUsername.setText(mEndUser.getName() +" " + mEndUser.getMiddleName() +" "+ mEndUser.getLastName());
+        ((RootActivity)getActivity()).setImage(mEndUser.getProfilePic(),mEndUser.getName()+mEndUser.getMiddleName()+mEndUser.getLastName(),mProfilePic);
+
+
+        //((RootActivity)getActivity()).setImage();
     }
 
     @Override
@@ -96,10 +109,8 @@ public class NavigationDrawerFragment extends Fragment {
         View v = inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
 
-       // mTextView.setTextColor();
-        View mView =  LayoutInflater.from(getActivity()).inflate(android.R.layout.simple_list_item_activated_1, container, false);
-
-        //mTextView.setTextColor(getResources().getColorStateList(R.color.default_button_textcolor_selector));
+        mUsername = (TextView)v.findViewById(R.id.Username);
+        mProfilePic = (CircleImageView)v.findViewById(R.id.profile_pic);
 
         mDrawerListView = (ListView)v.findViewById(R.id.listviewdrawer);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,8 +130,16 @@ public class NavigationDrawerFragment extends Fragment {
         return v;
     }
 
+
+
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
+    }
+
+
+    public void setData(EndUser enduser)
+    {
+        mEndUser = enduser;
     }
 
     /**

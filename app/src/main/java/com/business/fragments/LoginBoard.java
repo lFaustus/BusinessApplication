@@ -1,8 +1,8 @@
 package com.business.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.business.R;
+import com.business.RootActivity;
+import com.business.model.EndUser;
 import com.business.volley.VolleyConnection;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +42,7 @@ public class LoginBoard extends Fragment{
         LoginBoard fragment = new LoginBoard();
         Bundle args = new Bundle();
         args.putString(FRAGMENT_KEY, param1);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,16 +68,42 @@ public class LoginBoard extends Fragment{
         mUsername = (EditText)getView().findViewById(R.id.username);
         mPassword = (EditText)getView().findViewById(R.id.password);
         mLoginButton = (Button)getView().findViewById(R.id.loginbutton);
-        RequestQueue mRequestQueue = VolleyConnection.getInstance().getRequestQueue();
 
+        ((RootActivity)getActivity()).setCookie(mUsername.getText().toString(),mPassword.getText().toString());
+
+        RequestQueue mRequestQueue = VolleyConnection.getInstance().getRequestQueue();
         mLoginButton.setOnClickListener(v -> {
             StringRequest mLoginRequest = new StringRequest(Request.Method.POST, mLoginURL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.e("response", response.toString());
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.rootview, HomePage.newInstance("Home"))
-                            .commit();
+
+                    StringBuilder sb = new StringBuilder(response);
+                    sb.setCharAt(0,' ');
+                    sb.setCharAt(sb.length()-1,' ');
+                    Log.e("response", sb.toString());
+                    try {
+
+                        JSONObject mUserData = new JSONObject(sb.toString());
+                        EndUser mEndUser = new EndUser();
+                        mEndUser.setProfilePic(mUserData.get("imgurl").toString());
+                        mEndUser.setAccountStatus(mUserData.get("status").toString());
+                        mEndUser.setAddress(mUserData.get("address").toString());
+                        mEndUser.setContactNumber(mUserData.get("contactno").toString());
+                        mEndUser.setEmailAddress(mUserData.get("email").toString());
+                        mEndUser.setUsername(mUserData.get("username").toString().toCharArray());
+                        mEndUser.setPassword(mUserData.get("password").toString().toCharArray());
+                        mEndUser.setName(mUserData.get("firstname").toString());
+                        mEndUser.setLastName(mUserData.get("lastname").toString());
+                        mEndUser.setMiddleName(mUserData.get("middlename").toString());
+                        mEndUser.setBirthDay(mUserData.get("bdate").toString());
+
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.rootview, HomePage.newInstance("Home",mEndUser))
+                                .commit();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
             }, error -> {

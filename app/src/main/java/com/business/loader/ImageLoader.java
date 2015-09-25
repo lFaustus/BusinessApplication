@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import com.business.R;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -146,6 +146,7 @@ public class ImageLoader {
     	}
     	
     }
+
     
     
         

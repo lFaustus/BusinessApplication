@@ -96,9 +96,9 @@ public class BaseImageDownloader implements ImageDownloader
         return conn;
     }
 
-    private InputStream getStreamFromNetwork(String URI) throws IOException
-    {
-        HttpURLConnection conn = createConnection(URI);
+    private InputStream getStreamFromNetwork(String Uri) throws IOException, URISyntaxException {
+        Log.e("from","network");
+        /*HttpURLConnection conn = createConnection(URI);
 
         int redirectCount = 0;
         while (conn.getResponseCode() / 100 == 3 && redirectCount < MAX_REDIRECT_COUNT) {
@@ -118,8 +118,14 @@ public class BaseImageDownloader implements ImageDownloader
         {
             Utils.closeSilently(imageStream,null);
             throw new IOException("Image request failed with response code " + conn.getResponseCode());
-        }
-        return imageStream;
+        }*/
+        URL imageURI = new URL(Uri);
+        HttpURLConnection conn = (HttpURLConnection)imageURI.openConnection();
+        conn.setConnectTimeout(30000);
+        conn.setReadTimeout(30000);
+        conn.setInstanceFollowRedirects(true);
+        InputStream is=conn.getInputStream();
+        return is;
     }
 
     private InputStream getStreamFromOtherSource(String imageUri) throws IOException {

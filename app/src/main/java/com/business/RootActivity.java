@@ -3,10 +3,12 @@ package com.business;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.volley.RequestQueue;
+import com.business.customviews.circularimageview.CircleImageView;
 import com.business.fragments.AgencyList;
 import com.business.fragments.AgencyProcesses;
 import com.business.fragments.ControlPanel;
@@ -17,18 +19,22 @@ import com.business.fragments.NavigationDrawerFragment;
 import com.business.fragments.PersonalProcesses;
 import com.business.fragments.ProcessesManager;
 import com.business.fragments.Subscription;
+import com.business.loader.ImageLoaderEX;
+import com.business.misc.UserCookie;
 import com.business.volley.VolleyConnection;
 
 public class RootActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private CharSequence mTitle;
     private RequestQueue mRequestQueue;
-
+    private UserCookie mUserCookie;
+    private ImageLoaderEX mImageLoaderEX;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rootactivity);
         mTitle = getTitle();
+        mImageLoaderEX = new ImageLoaderEX(this);
         mRequestQueue = VolleyConnection.getInstance().getRequestQueue();
         if(savedInstanceState == null)
             getSupportFragmentManager().beginTransaction()
@@ -59,7 +65,20 @@ public class RootActivity extends AppCompatActivity implements NavigationDrawerF
         return super.onOptionsItemSelected(item);
     }
 
+    public void setCookie(String user,String pass)
+    {
+        mUserCookie = new UserCookie(user,pass);
+    }
 
+    public UserCookie getCookie()
+    {
+        return mUserCookie;
+    }
+
+    public void setImage(String URL,String name,CircleImageView mCircleImageView )
+    {
+        mImageLoaderEX.DisplayImage(URL,name,mCircleImageView);
+    }
 
     public RequestQueue getRequestQueue()
     {
@@ -70,7 +89,7 @@ public class RootActivity extends AppCompatActivity implements NavigationDrawerF
     public void onNavigationDrawerItemSelected(int position) {
         ControlPanel mControlPanel;
         String mTag = NavigationDrawerFragment.mFragment_Tags[position];
-
+        Log.e("Tag",mTag);
         switch(position)
         {
 

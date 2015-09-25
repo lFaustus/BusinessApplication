@@ -69,6 +69,7 @@ public class AgencyList extends ControlPanel {
                     mAgencyProcess.setAgency(mJsonObject.getString("AgencyName"));
                     mAgencyProcess.setBranch(mJsonObject.getString("branch"));
                     mAgencyProcess.setAddress(mJsonObject.getString("address"));
+                    mAgencyProcess.setImgUrl(mJsonObject.getString("imgurl"));
                     /*mAgencyProcess.setCheck(mJsonObject.getString("check"));
                     mAgencyProcess.setUncheck(mJsonObject.getString("uncheck"));
                     mAgencyProcess.setDone(mJsonObject.getString("done"));

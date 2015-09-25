@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.android.volley.RequestQueue;
 import com.business.R;
 import com.business.RootActivity;
+import com.business.model.EndUser;
 
 /**
  * Created by User on 25/09/2015.
@@ -23,11 +24,14 @@ public class HomePage extends Fragment{
     private RequestQueue mRequestQueue;
     private static String FRAGMENT_KEY ="LoginBoard";
     private static String FRAGMENT_TAG;
+    private EndUser mUserData;
+    private static String DATA ="UserData";
 
-    public static HomePage newInstance(String param1) {
+    public static HomePage newInstance(String param1,Object param2) {
         HomePage fragment = new HomePage();
         Bundle args = new Bundle();
         args.putString(FRAGMENT_KEY, param1);
+        args.putParcelable(DATA, (EndUser) param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,6 +41,7 @@ public class HomePage extends Fragment{
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             FRAGMENT_TAG = getArguments().getString(FRAGMENT_KEY);
+            mUserData = getArguments().getParcelable(DATA);
         }
     }
 
@@ -57,6 +62,7 @@ public class HomePage extends Fragment{
         mRequestQueue = ((RootActivity)getActivity()).getRequestQueue();
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getChildFragmentManager().findFragmentById(R.id.navigation_drawer);
         drawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) getView().findViewById(R.id.drawer_layout), mAppBar);
+        drawerFragment.setData(mUserData);
 
     }
 

@@ -75,7 +75,7 @@ public class ControlPanel extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("Recycler","not null");
+        Log.e("Recycler", "not null");
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.content, container, false);
         //View v = getView().findViewById(R.id.content);
@@ -91,17 +91,20 @@ public class ControlPanel extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mRecyclerView = (RecyclerView)LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview,null,true);
-        if(mRecyclerView != null)
-            Log.e("Recycler","not null");
-        mContent.addView(mRecyclerView);
+        if(!this.getClass().equals(DownloadProcesses.class) || !this.getClass().equals(FileManager.class) ) {
 
-        if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-        else
-            mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
+            mRecyclerView = (RecyclerView) LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview, null, true);
+            if (mRecyclerView != null)
+                Log.e("Recycler", "not null");
+            mContent.addView(mRecyclerView);
+
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+            else
+                mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+            mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+            mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

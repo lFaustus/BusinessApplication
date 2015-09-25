@@ -15,7 +15,7 @@
         android:gravity="center">
 
         <com.business.customviews.circularimageview.CircleImageView
-            android:id="@+id/content_icon"
+            android:id="@+id/card_icon"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"

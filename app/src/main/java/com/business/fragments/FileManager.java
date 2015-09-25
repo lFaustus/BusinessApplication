@@ -1,20 +1,20 @@
 package com.business.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.business.R;
 import com.business.RootActivity;
-import com.business.adapters.CustomRecyclerAdapter;
-import com.business.model.BaseModel;
-
-import java.util.ArrayList;
 
 /**
  * Created by User on 23/09/2015.
  */
 public class FileManager extends ControlPanel {
-    private ArrayList<BaseModel> mArrayList = new ArrayList<BaseModel>();
     public static String FRAGMENT_TAG;
+    private static final String mRetrieveURL="http://192.168.1.36/christian-john/enduser/file-list.php";
+    private WebView mWebView;
 
     public static ControlPanel newInstance(String param1) {
         FileManager fragment = new FileManager();
@@ -36,7 +36,11 @@ public class FileManager extends ControlPanel {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        super.mContentLabel.setText(FRAGMENT_TAG);
-        super.mRecyclerView.setAdapter(new CustomRecyclerAdapter(getActivity(), mArrayList, R.layout.recyclerview_items_personal_agency_process, FRAGMENT_TAG));
+        mWebView = (WebView) LayoutInflater.from(getActivity()).inflate(R.layout.webview, null, true);
+        super.mContent.addView(mWebView);
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.addJavascriptInterface(((RootActivity)getActivity()).getCookie(), "stringGetter");
+        mWebView.loadUrl(mRetrieveURL);
     }
 }

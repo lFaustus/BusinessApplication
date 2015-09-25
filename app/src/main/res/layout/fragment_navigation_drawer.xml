@@ -19,7 +19,8 @@
             android:layout_marginTop="10dp"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/hello" />
+            android:src="@drawable/hello"
+            android:id="@+id/profile_pic"/>
 
         <com.business.customviews.circularimageview.customTextView
             android:id="@+id/Username"

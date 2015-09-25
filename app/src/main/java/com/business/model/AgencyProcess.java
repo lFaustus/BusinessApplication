@@ -7,6 +7,10 @@ public class AgencyProcess extends PersonalProcess {
     protected String address;
     protected String branch;
     protected String agency;
+    protected String ImgUrl;
+
+    public AgencyProcess() {
+    }
 
     public String getAgency() {
         return agency;
@@ -16,7 +20,12 @@ public class AgencyProcess extends PersonalProcess {
         this.agency = agency;
     }
 
-    public AgencyProcess() {
+    public String getImgUrl() {
+        return ImgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        ImgUrl = imgUrl;
     }
 
     public String getAddress() {

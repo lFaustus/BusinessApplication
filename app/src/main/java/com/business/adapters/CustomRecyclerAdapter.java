@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.business.RootActivity;
 import com.business.fragments.AgencyList;
 import com.business.fragments.AgencyProcesses;
 import com.business.fragments.FileManager;
@@ -148,6 +149,8 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             holder.mContentLabel.setText(mAgencyList.getAgency());
             holder.mBranch.setText("Branch - "+mAgencyList.getBranch());
             holder.mAddress.setText("Address - "+mAgencyList.getAddress());
+            ((RootActivity)mActivity).setImage(mAgencyList.getImgUrl(), mAgencyList.getAgency(), holder.mCard_icon);
+            Log.e("imageurl",mAgencyList.getImgUrl());
         }
         else
             ;
