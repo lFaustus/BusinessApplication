@@ -64,7 +64,7 @@ public class AgencyProcesses extends ControlPanel {
                     AgencyProcess mAgencyProcess = new AgencyProcess();
                     mAgencyProcess.setId(mJsonObject.getString("id"));
                     mAgencyProcess.setName(mJsonObject.getString("name"));
-
+                    mAgencyProcess.setSub_Id(mJsonObject.getString("sub_id"));
                     mAgencyProcess.setAgency(mJsonObject.getString("agency"));
                     mAgencyProcess.setBranch(mJsonObject.getString("branch"));
                     mAgencyProcess.setAddress(mJsonObject.getString("address"));

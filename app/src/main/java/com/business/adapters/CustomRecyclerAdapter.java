@@ -104,7 +104,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             holder.mRecurrence.setText(mProcessManagerModel.getRecurrence());
             holder.mDateCreated.setText(mProcessManagerModel.getDateCreated());
             holder.mDateModified.setText(mProcessManagerModel.getDateModified());
-            holder.mUpdateButton.setTag(mProcessManagerModel.getId());
+            holder.mUpdateButton.setTag(new Tagging(mProcessManagerModel.getId(),position));
             holder.mDeleteButton.setTag(new Tagging(mProcessManagerModel.getId(),position));
             holder.mMoreButton.setTag(mProcessManagerModel.getId());
         }
@@ -121,6 +121,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             holder.mRequirementStatus.setText("Uncheck : "+ mAgencyProcess.getUndone()+" / "+mAgencyProcess.getRequirementCount()
             +"Check: "+mAgencyProcess.getCheck() + " / "+mAgencyProcess.getRequirementCount());
             holder.mViewProcessButton.setTag(mAgencyProcess.getId());
+            holder.mDeleteButton.setTag(new Tagging(mAgencyProcess.getId(),position,mAgencyProcess.getSub_Id()));
 
         }
         else if (mFragmentTag.equals(FileManager.FRAGMENT_TAG))
@@ -224,6 +225,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
     @Override
     public void onDelete(Object obj) {
         Tagging mTag = (Tagging)obj;
+        //Toast.makeText(mActivity, ""+mTag.getId()+" "+mTag.getPos(), Toast.LENGTH_SHORT).show();
         mArrayList.remove(mTag.getPos());
         notifyDataSetChanged();
     }

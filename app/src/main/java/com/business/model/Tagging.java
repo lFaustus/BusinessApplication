@@ -6,10 +6,17 @@ package com.business.model;
 public class Tagging {
     String id;
     int pos;
+    String sub_id;
 
     public Tagging(String id, int pos) {
         this.id = id;
         this.pos = pos;
+    }
+
+    public Tagging(String id, int pos, String sub_id) {
+        this.id = id;
+        this.pos = pos;
+        this.sub_id = sub_id;
     }
 
     public String getId() {
@@ -26,5 +33,13 @@ public class Tagging {
 
     public void setPos(int pos) {
         this.pos = pos;
+    }
+
+    public String getSub_id() {
+        return sub_id;
+    }
+
+    public void setSub_id(String sub_id) {
+        this.sub_id = sub_id;
     }
 }

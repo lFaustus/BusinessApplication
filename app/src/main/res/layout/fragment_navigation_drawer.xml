@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/material_lightblue"
+        android:background="@color/light_blue"
         android:orientation="vertical">
 
         <com.business.customviews.circularimageview.CircleImageView

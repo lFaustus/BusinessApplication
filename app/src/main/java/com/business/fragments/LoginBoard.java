@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -152,6 +153,7 @@ public class LoginBoard extends Fragment{
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(getActivity(),"invalid Input",Toast.LENGTH_SHORT).show();
                     }
 
                 }

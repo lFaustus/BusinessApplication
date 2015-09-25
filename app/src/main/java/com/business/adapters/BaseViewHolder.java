@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -239,14 +238,42 @@ public class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                   };
                     mRequestQueue.add(mRequest);
                 }
+
+                else if(this.getClass().equals(ViewHolderAgencyProcess.class))
+                {
+                    url = mActivity.getResources().getString(R.string.client_url)+"deletesubsprocess.php?id="+((Tagging)v.getTag()).getSub_id();
+                    StringRequest mRequest = new StringRequest(Request.Method.GET,url, response -> {
+
+                    },error -> {
+                        error.printStackTrace();
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("id", v.getTag().toString());
+                            //params.put("pass", mPassword.getText().toString());
+                            return params;
+                        }
+                    };
+                    mRequestQueue.add(mRequest);
+                }
+
+
                 mCrud.onDelete(v.getTag());
 
                 break;
             case R.id.update_button:
                 if(v.getTag() == null)
                     return;
+                if(this.getClass().equals(ViewHolderProcessManager.class))
+                {
+                    Intent  mPopup = new Intent(mActivity, Windowpopup.class);
+                    mPopup.putExtra("id", String.valueOf(v.getTag()));
+                    mPopup.putExtra("page", "updateprocess");
+                    mActivity.startActivity(mPopup);
 
-                Toast.makeText(mActivity, "update " + v.getTag().toString(), Toast.LENGTH_SHORT).show();
+                }
+                //Toast.makeText(mActivity, "update " + v.getTag().toString(), Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.more_button:

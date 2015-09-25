@@ -39,6 +39,11 @@ public class Windowpopup extends AppCompatActivity {
             mRetrieveURL = getResources().getString(R.string.client_url) + "startrequirements.php?pid=" + userId ;
         }
 
+        else if(page.equals("updateprocess"))
+        {
+            mRetrieveURL = getResources().getString(R.string.client_url) + "updateprocess.php?id="+userId;
+        }
+
 
     }
 
