@@ -3,9 +3,8 @@
     package="com.business" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".volley.MyApplication"
@@ -28,7 +27,6 @@
         <activity
             android:name=".LoginPage"
             android:label="@string/title_activity_login_page" >
-
         </activity>
         <activity
             android:name=".RootActivity"
@@ -38,6 +36,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Windowpopup"
+            android:label="@string/title_activity_popup"
+            android:noHistory="true">
         </activity>
     </application>
 

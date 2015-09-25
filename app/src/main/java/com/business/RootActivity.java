@@ -65,9 +65,9 @@ public class RootActivity extends AppCompatActivity implements NavigationDrawerF
         return super.onOptionsItemSelected(item);
     }
 
-    public void setCookie(String user,String pass)
+    public void setCookie(String id,String user,String pass)
     {
-        mUserCookie = new UserCookie(user,pass);
+        mUserCookie = new UserCookie(id,user,pass);
     }
 
     public UserCookie getCookie()

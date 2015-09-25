@@ -7,7 +7,7 @@ import android.view.View;
  * Created by User on 24/09/2015.
  */
 public class ViewHolderDownloadProcesses extends BaseViewHolder {
-    public ViewHolderDownloadProcesses(View itemView, Activity activity) {
-        super(itemView, activity);
+    public ViewHolderDownloadProcesses(View itemView, Activity activity,CustomRecyclerAdapter customRecyclerAdapter) {
+        super(itemView, activity,customRecyclerAdapter);
     }
 }

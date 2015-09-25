@@ -30,4 +30,6 @@
     </string-array>
     <string name="title_activity_login_page">LoginPage</string>
     <string name="title_activity_rootactivity">rootactivity</string>
+    <string name="title_activity_popup">popup</string>
+    <string name="client_url">http://192.168.1.36/christian-john/enduser/</string>
 </resources>

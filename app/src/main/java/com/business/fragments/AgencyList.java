@@ -55,7 +55,7 @@ public class AgencyList extends ControlPanel {
 
         RequestQueue mRequestQueue = VolleyConnection.getInstance().getRequestQueue();
         JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.POST,mRetrieveURL, response -> {
-            //Log.e("Aw", mRetrieveURL);
+            Log.e("agencylistsss",response.toString());
             try {
                 JSONArray mInformation = response.getJSONArray("agency");
                 Log.e("mInformationCount", mInformation.length() + "");

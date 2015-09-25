@@ -98,6 +98,7 @@
     <orderEntry type="library" exported="" name="recyclerview-v7-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-22.1.0" level="project" />
+    <orderEntry type="library" exported="" name="Android-AdvancedWebView" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
   </component>
 </module>

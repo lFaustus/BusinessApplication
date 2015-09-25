@@ -7,7 +7,7 @@ import android.view.View;
  * Created by User on 24/09/2015.
  */
 public class ViewHolderFileManager extends BaseViewHolder {
-    public ViewHolderFileManager(View itemView, Activity activity) {
-        super(itemView, activity);
+    public ViewHolderFileManager(View itemView, Activity activity,CustomRecyclerAdapter customRecyclerAdapter) {
+        super(itemView, activity,customRecyclerAdapter);
     }
 }

@@ -21,13 +21,14 @@ import com.business.model.AgencyProcess;
 import com.business.model.BaseModel;
 import com.business.model.ProcessManagerModel;
 import com.business.model.SubscriptionModel;
+import com.business.model.Tagging;
 
 import java.util.ArrayList;
 
 /**
  * Created by User on 23/09/2015.
  */
-public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> implements BaseViewHolder.CRUD{
 
     private ArrayList<BaseModel> mArrayList;
     private Activity mActivity;
@@ -43,6 +44,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
         mRecyclerItemLayout = recyclerItemLayout;
         mFragmentTag = fragmentTag;
         Log.e("Size",mArrayList.size()+"");
+        notifyDataSetChanged();
 
 
     }
@@ -54,31 +56,31 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
        // Log.e("tag",mFragmentTag+" "+AgencyProcesses.FRAGMENT_TAG);
         if(mFragmentTag.equals(ProcessesManager.FRAGMENT_TAG)) {
             Log.e("process", "process");
-            mBaseViewHolder = new ViewHolderProcessManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+            mBaseViewHolder = new ViewHolderProcessManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity,this);
         }
         else if (mFragmentTag.equals(AgencyProcesses.FRAGMENT_TAG)) {
             Log.e("agency", "process");
-            mBaseViewHolder = new ViewHolderAgencyProcess(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+            mBaseViewHolder = new ViewHolderAgencyProcess(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity,this);
         }
         else if (mFragmentTag.equals(FileManager.FRAGMENT_TAG)) {
             Log.e("file", "process");
-            mBaseViewHolder = new ViewHolderFileManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+            mBaseViewHolder = new ViewHolderFileManager(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity,this);
         }
         else if (mFragmentTag.equals(Subscription.FRAGMENT_TAG)) {
             Log.e("subscription", "process");
-            mBaseViewHolder = new ViewHolderSubscriptions(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+            mBaseViewHolder = new ViewHolderSubscriptions(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity,this);
         }
         else if (mFragmentTag.equals(PersonalProcesses.FRAGMENT_TAG)) {
             Log.e("personal", "process");
-            mBaseViewHolder = new ViewHolderPersonalProcess(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+            mBaseViewHolder = new ViewHolderPersonalProcess(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity,this);
         }
         else if (mFragmentTag.equals(AgencyList.FRAGMENT_TAG)) {
             Log.e("agencylist", "agencylist");
-            mBaseViewHolder = new ViewHolderAgencyList(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+            mBaseViewHolder = new ViewHolderAgencyList(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity,this);
         }
         else {
             Log.e("download", "process");
-            mBaseViewHolder = new ViewHolderDownloadProcesses(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity);
+            mBaseViewHolder = new ViewHolderDownloadProcesses(LayoutInflater.from(parent.getContext()).inflate(mRecyclerItemLayout, parent, false), mActivity,this);
         }
         return mBaseViewHolder;
     }
@@ -103,7 +105,8 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             holder.mDateCreated.setText(mProcessManagerModel.getDateCreated());
             holder.mDateModified.setText(mProcessManagerModel.getDateModified());
             holder.mUpdateButton.setTag(mProcessManagerModel.getId());
-            holder.mDeleteButton.setTag(mProcessManagerModel.getId());
+            holder.mDeleteButton.setTag(new Tagging(mProcessManagerModel.getId(),position));
+            holder.mMoreButton.setTag(mProcessManagerModel.getId());
         }
         else if (mFragmentTag.equals(AgencyProcesses.FRAGMENT_TAG))
         {
@@ -117,6 +120,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             +mAgencyProcess.getCount());
             holder.mRequirementStatus.setText("Uncheck : "+ mAgencyProcess.getUndone()+" / "+mAgencyProcess.getRequirementCount()
             +"Check: "+mAgencyProcess.getCheck() + " / "+mAgencyProcess.getRequirementCount());
+            holder.mViewProcessButton.setTag(mAgencyProcess.getId());
 
         }
         else if (mFragmentTag.equals(FileManager.FRAGMENT_TAG))
@@ -215,6 +219,13 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
             holder.mBranch.setVisibility(View.VISIBLE);
             holder.mAddress.setVisibility(View.VISIBLE);
         }*/
+    }
+
+    @Override
+    public void onDelete(Object obj) {
+        Tagging mTag = (Tagging)obj;
+        mArrayList.remove(mTag.getPos());
+        notifyDataSetChanged();
     }
 
     /*class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

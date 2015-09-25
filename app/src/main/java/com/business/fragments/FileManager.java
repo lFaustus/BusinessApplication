@@ -2,11 +2,11 @@ package com.business.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.business.R;
 import com.business.RootActivity;
+
+import im.delight.android.webview.AdvancedWebView;
 
 /**
  * Created by User on 23/09/2015.
@@ -14,7 +14,7 @@ import com.business.RootActivity;
 public class FileManager extends ControlPanel {
     public static String FRAGMENT_TAG;
     private static final String mRetrieveURL="http://192.168.1.36/christian-john/enduser/file-list.php";
-    private WebView mWebView;
+    private AdvancedWebView mWebView;
 
     public static ControlPanel newInstance(String param1) {
         FileManager fragment = new FileManager();
@@ -36,11 +36,11 @@ public class FileManager extends ControlPanel {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mWebView = (WebView) LayoutInflater.from(getActivity()).inflate(R.layout.webview, null, true);
+        mWebView = (AdvancedWebView) LayoutInflater.from(getActivity()).inflate(R.layout.webview, null, true);
         super.mContent.addView(mWebView);
-        mWebView.setWebViewClient(new WebViewClient());
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.addJavascriptInterface(((RootActivity)getActivity()).getCookie(), "stringGetter");
+        //mWebView.setWebViewClient(new WebViewClient());
+       // mWebView.getSettings().setJavaScriptEnabled(true);
+        //mWebView.addJavascriptInterface(((RootActivity)getActivity()).getCookie(), "stringGetter");
         mWebView.loadUrl(mRetrieveURL);
     }
 }

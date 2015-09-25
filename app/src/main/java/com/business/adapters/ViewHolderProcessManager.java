@@ -8,8 +8,8 @@ import android.view.View;
  */
 public class ViewHolderProcessManager extends BaseViewHolder {
 
-    public ViewHolderProcessManager(View itemView, Activity activity) {
-        super(itemView, activity);
+    public ViewHolderProcessManager(View itemView, Activity activity,CustomRecyclerAdapter customRecyclerAdapter) {
+        super(itemView, activity,customRecyclerAdapter);
         super.mDownloadedfrom.setVisibility(View.GONE);
         super.mDownloadedfromLabel.setVisibility(View.GONE);
         super.mScheduleType.setVisibility(View.GONE);

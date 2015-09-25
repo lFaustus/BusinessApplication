@@ -20,6 +20,7 @@ import com.business.RootActivity;
 import com.business.model.EndUser;
 import com.business.volley.VolleyConnection;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,37 +70,86 @@ public class LoginBoard extends Fragment{
         mPassword = (EditText)getView().findViewById(R.id.password);
         mLoginButton = (Button)getView().findViewById(R.id.loginbutton);
 
-        ((RootActivity)getActivity()).setCookie(mUsername.getText().toString(),mPassword.getText().toString());
+        ((RootActivity)getActivity()).setCookie(null, mUsername.getText().toString(), mPassword.getText().toString());
 
         RequestQueue mRequestQueue = VolleyConnection.getInstance().getRequestQueue();
+        /*mLoginButton.setOnClickListener(v->
+        {
+            JsonObjectRequest mRequestLogin = new JsonObjectRequest(Request.Method.POST,mLoginURL,response -> {
+                try {
+                    JSONObject mUserData = response.getJSONObject("login");
+                    EndUser mEndUser = new EndUser();
+                    mEndUser.setProfilePic(mUserData.get("imgurl").toString());
+                    mEndUser.setAccountStatus(mUserData.get("status").toString());
+                    mEndUser.setAddress(mUserData.get("address").toString());
+                    mEndUser.setContactNumber(mUserData.get("contactno").toString());
+                    mEndUser.setEmailAddress(mUserData.get("email").toString());
+                    mEndUser.setUsername(mUserData.get("username").toString().toCharArray());
+                    mEndUser.setPassword(mUserData.get("password").toString().toCharArray());
+                    mEndUser.setName(mUserData.get("firstname").toString());
+                    mEndUser.setLastName(mUserData.get("lastname").toString());
+                    mEndUser.setMiddleName(mUserData.get("middlename").toString());
+                    mEndUser.setBirthDay(mUserData.get("bdate").toString());
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.rootview, HomePage.newInstance("Home",mEndUser))
+                            .commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            },error -> {
+                error.printStackTrace();
+            });
+            mRequestQueue.add(mRequestLogin);
+
+        });*/
         mLoginButton.setOnClickListener(v -> {
             StringRequest mLoginRequest = new StringRequest(Request.Method.POST, mLoginURL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
-                    StringBuilder sb = new StringBuilder(response);
+                   /* StringBuilder sb = new StringBuilder(response);
                     sb.setCharAt(0,' ');
-                    sb.setCharAt(sb.length()-1,' ');
-                    Log.e("response", sb.toString());
+                    sb.setCharAt(sb.length()-1,' ');*/
+                    Log.e("response", response);
                     try {
+                        JSONObject mInformation = new JSONObject(response);
+                        for (int i = 0; i < mInformation.length(); i++) {
+                            JSONArray mUserData = new JSONArray(mInformation.get("login").toString());
 
-                        JSONObject mUserData = new JSONObject(sb.toString());
-                        EndUser mEndUser = new EndUser();
-                        mEndUser.setProfilePic(mUserData.get("imgurl").toString());
-                        mEndUser.setAccountStatus(mUserData.get("status").toString());
-                        mEndUser.setAddress(mUserData.get("address").toString());
-                        mEndUser.setContactNumber(mUserData.get("contactno").toString());
-                        mEndUser.setEmailAddress(mUserData.get("email").toString());
-                        mEndUser.setUsername(mUserData.get("username").toString().toCharArray());
-                        mEndUser.setPassword(mUserData.get("password").toString().toCharArray());
-                        mEndUser.setName(mUserData.get("firstname").toString());
-                        mEndUser.setLastName(mUserData.get("lastname").toString());
-                        mEndUser.setMiddleName(mUserData.get("middlename").toString());
-                        mEndUser.setBirthDay(mUserData.get("bdate").toString());
+                            for (int o = 0; o < mUserData.length(); o++) {
+                                EndUser mEndUser = new EndUser();
+                                JSONObject mObject = new JSONObject(mUserData.get(i).toString());
+                                mEndUser.setProfilePic(mObject.get("imgurl").toString());
+                                mEndUser.setAccountStatus(mObject.get("status").toString());
+                                mEndUser.setAddress(mObject.get("address").toString());
+                                mEndUser.setContactNumber(mObject.get("contactno").toString());
+                                mEndUser.setEmailAddress(mObject.get("email").toString());
+                                mEndUser.setUsername(mObject.get("username").toString().toCharArray());
+                                mEndUser.setPassword(mObject.get("password").toString().toCharArray());
+                                mEndUser.setName(mObject.get("firstname").toString());
+                                mEndUser.setLastName(mObject.get("lastname").toString());
+                                mEndUser.setMiddleName(mObject.get("middlename").toString());
+                                mEndUser.setBirthDay(mObject.get("bdate").toString());
 
-                        getFragmentManager().beginTransaction()
-                                .replace(R.id.rootview, HomePage.newInstance("Home",mEndUser))
-                                .commit();
+                                /*mEndUser.setProfilePic(mUserData.get("imgurl").toString());
+                                mEndUser.setAccountStatus(mUserData.get("status").toString());
+                                mEndUser.setAddress(mUserData.get("address").toString());
+                                mEndUser.setContactNumber(mUserData.get("contactno").toString());
+                                mEndUser.setEmailAddress(mUserData.get("email").toString());
+                                mEndUser.setUsername(mUserData.get("username").toString().toCharArray());
+                                mEndUser.setPassword(mUserData.get("password").toString().toCharArray());
+                                mEndUser.setName(mUserData.get("firstname").toString());
+                                mEndUser.setLastName(mUserData.get("lastname").toString());
+                                mEndUser.setMiddleName(mUserData.get("middlename").toString());
+                                mEndUser.setBirthDay(mUserData.get("bdate").toString());*/
+
+                                getFragmentManager().beginTransaction()
+                                        .replace(R.id.rootview, HomePage.newInstance("Home", mEndUser))
+                                        .commit();
+                            }
+                        }
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -108,12 +158,12 @@ public class LoginBoard extends Fragment{
 
             }, error -> {
                 error.printStackTrace();
-            }){
+            }) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> params = new HashMap<String,String>();
-                    params.put("user",mUsername.getText().toString());
-                    params.put("pass",mPassword.getText().toString());
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("user", mUsername.getText().toString());
+                    params.put("pass", mPassword.getText().toString());
                     return params;
                 }
             };

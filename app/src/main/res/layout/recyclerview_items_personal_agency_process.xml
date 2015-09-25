@@ -124,6 +124,17 @@
                 android:text="Delete"
                 android:textColor="@color/red_button_textcolor_selector"
                 android:textSize="13sp" />
+            <Button
+                android:id="@+id/view_process_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/delete_button"
+                android:layout_below="@+id/card_divider"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/update_button"
+                android:text="View Process"
+                android:textColor="@color/orange_button_textcolor_selector"
+                android:textSize="13sp" />
 
         </RelativeLayout>
 
